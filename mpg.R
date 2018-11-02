@@ -27,3 +27,29 @@ ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = cty))
 ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = cty, size = cty))
 ?geom_point
 ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = displ < 5), shape = 21, fill = "white", stroke = 5)
+
+# Facets
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap(~ class, nrow = 2)
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ cyl)
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl) # this syntax accomplishes the same thing as line 34
+
+# Facets Exercises
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap(~ cty) # that's a mess
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ cyl)
+# there are no cars with (five cyl and 4-wheel drive) or other combinations
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .) # class name then . gives rows; . then class name give cols
+# faceting allows us to see trends without confounding variables
+# color aesthetic allows us to see trends within trends (?)
+# `facet_grid()` doesn't have nrow and ncol because these are set by the number of distinct values in the dataset
